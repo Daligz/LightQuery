@@ -1,0 +1,2 @@
+# LightQuery
+SQL query builder
