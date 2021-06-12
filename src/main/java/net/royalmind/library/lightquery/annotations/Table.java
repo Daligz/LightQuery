@@ -14,20 +14,31 @@ public @interface Table {
      *
      * @return {@link String}
      */
-    String name() default "TableName";
+    String name();
 
     /**
      * Create table if not exists
      *
      * @return @{@link Boolean}
      */
-    boolean create() default false;
+    boolean create();
 
     /**
      * Force drop table if exist and create table
      *
      * @return @{@link Boolean}
      */
-    boolean force() default false;
+    boolean clear() default false;
+
+    /**
+     * Set table types values using lQuery syntax
+     *
+     * Examples:
+     * Default query: "id INT(4) NOT NULL AUTO_INCREMENT, value VARCHAR(5) NOT NULL, PRIMARY KEY(id)"
+     * lQuery: "id INT:4 -> NN AI, value STRING:5 -> NN, PK:id"
+     *
+     * @return @{@link String}
+     */
+    String values() default "TABLE => id INT:4 -> NN AI, value STR:5 -> NN, PK:id";
 }
 
