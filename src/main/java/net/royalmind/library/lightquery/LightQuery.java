@@ -6,6 +6,4 @@ import org.slf4j.LoggerFactory;
 public class LightQuery {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LightQuery.class);
-
-
 }
