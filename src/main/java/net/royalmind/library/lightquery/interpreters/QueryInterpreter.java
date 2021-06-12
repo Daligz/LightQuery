@@ -32,23 +32,13 @@ public class QueryInterpreter {
         // %s is the table name
         final StringBuilder lQuery = new StringBuilder(table.getDefSyntax() + " %s (");
 
-        // id INT:4 -> NN AI,
-        // value STRING:5 -> NN,
-        // PK:id
         final String[] split = slQuery.split(",");
 
         lQuery.append(checkV(split));
 
-        //append(");")
         return lQuery.substring(0, lQuery.toString().length() - 1).concat(");");
-        //return lQuery.toString();
     }
 
-    // id
-    // INT:4
-    // ->
-    // NN
-    // AI,
     private String checkV(final String[] split) {
         final StringBuilder lQuery = new StringBuilder();
 
