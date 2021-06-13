@@ -44,4 +44,26 @@ public class ValueInterpreter {
     public ObjectInterpreter Interpret(final String value) {
         return ObjectInterpreter.valueOf(value);
     }
+
+    public String interpretSQL(final Object object) {
+        final String name = object.getClass().getSimpleName();
+        final String type;
+        switch (name.toLowerCase()) {
+            case "string":
+                type = String.format("'%s'", object);
+                break;
+            case "integer":
+            case "double":
+            case "float":
+            case "boolean":
+                type = String.valueOf(object);
+                break;
+            case "date":
+                type = object.toString();
+                break;
+            default:
+                type = "";
+        }
+        return type;
+    }
 }

@@ -2,7 +2,7 @@ package net.royalmind.library.lightquery.queries;
 
 import net.royalmind.library.lightquery.exceptions.EmptyValueException;
 
-public class LSelect implements Query, QueryBuilder<LSelect> {
+public class LSelect implements Query, SelectQueryBuilder<LSelect> {
 
     public static final String FORMAT_VALUE = "SELECT %s FROM %s WHERE %s;";
     public static final String FROM_EXCEPTION = "LSelect builder";
