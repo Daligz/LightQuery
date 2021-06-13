@@ -2,7 +2,6 @@ package net.royalmind.library.lightquery.queries;
 
 import net.royalmind.library.lightquery.exceptions.EmptyValueException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,20 +10,14 @@ class LSelectTest {
 
     @Test
     void emptyValueException() {
-        assertThrows(EmptyValueException.class, new Executable() {
-            @Override
-            public void execute() throws EmptyValueException {
-                final String tbl_test = new LSelect().from("TBL_TEST").where("id = test").getQuery();
-                System.out.println(tbl_test);
-            }
+        assertThrows(EmptyValueException.class, () -> {
+            final String tbl_test = new LSelect().from("TBL_TEST").where("id = test").getQuery();
+            System.out.println(tbl_test);
         });
 
-        assertThrows(EmptyValueException.class, new Executable() {
-            @Override
-            public void execute() throws EmptyValueException {
-                final String tbl_test = new LSelect().value("").from("").where("id = test").getQuery();
-                System.out.println(tbl_test);
-            }
+        assertThrows(EmptyValueException.class, () -> {
+            final String tbl_test = new LSelect().value("").from("").where("id = test").getQuery();
+            System.out.println(tbl_test);
         });
     }
 
