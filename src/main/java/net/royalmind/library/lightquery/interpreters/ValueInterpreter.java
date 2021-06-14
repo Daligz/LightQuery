@@ -46,6 +46,7 @@ public class ValueInterpreter {
     }
 
     public String interpretSQL(final Object object) {
+        if (object == null) return "null";
         final String name = object.getClass().getSimpleName();
         final String type;
         switch (name.toLowerCase()) {
