@@ -51,6 +51,7 @@ public class ValueInterpreter {
         final String type;
         switch (name.toLowerCase()) {
             case "string":
+            case "date":
                 type = String.format("'%s'", object);
                 break;
             case "integer":
@@ -58,9 +59,6 @@ public class ValueInterpreter {
             case "float":
             case "boolean":
                 type = String.valueOf(object);
-                break;
-            case "date":
-                type = object.toString();
                 break;
             default:
                 type = "null";
