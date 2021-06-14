@@ -27,7 +27,7 @@ public class HikariPool {
         this.hikariDataSource.close();
     }
 
-    interface ConnectionCallback<T> {
+    public interface ConnectionCallback<T> {
         public T doInConnection(final Connection connection);
     }
 }
