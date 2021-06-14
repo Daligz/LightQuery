@@ -36,7 +36,7 @@ public class ValueInterpreter {
                 type = "FLOAT";
                 break;
             default:
-                type = "";
+                type = "null";
         }
         return type;
     }
@@ -62,7 +62,7 @@ public class ValueInterpreter {
                 type = object.toString();
                 break;
             default:
-                type = "";
+                type = "null";
         }
         return type;
     }
