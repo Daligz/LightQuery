@@ -12,9 +12,6 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     public static final String FROM_EXCEPTION = "LUpdate builder";
 
     private String table, where;
-    // Tal vez esto se podria simplificar usando algo como un add
-    // add(Object, "Value")
-    // Y que se guarden en un hash o algo asi, para evitar confusion
     private Map<String, Object> updates = new HashMap<>();
 
     @Override
