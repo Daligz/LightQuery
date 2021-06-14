@@ -28,6 +28,6 @@ public class HikariPool {
     }
 
     public interface ConnectionCallback<T> {
-        public T doInConnection(final Connection connection);
+        public T doInConnection(final Connection connection) throws SQLException;
     }
 }
