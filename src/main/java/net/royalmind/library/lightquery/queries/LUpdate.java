@@ -12,6 +12,9 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     public static final String FROM_EXCEPTION = "LUpdate builder";
 
     private String table, where;
+    // Tal vez esto se podria simplificar usando algo como un add
+    // add(Object, "Value")
+    // Y que se guarden en un hash o algo asi, para evitar confusion
     private Map<String, Object> updates = new HashMap<>();
 
     @Override
@@ -50,13 +53,16 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
                         .append(",")
         );
         if (this.where != null && !(this.where.isEmpty())) {
+            lQuery.deleteCharAt(lQuery.toString().length() - 1);
             lQuery
                     .append(" WHERE ")
                     .append(this.where);
+        } else {
+            lQuery.deleteCharAt(lQuery.toString().length() - 1);
         }
         return lQuery
-                .substring(0, lQuery.toString().length() - 2)
-                .concat(";");
+                .append(";")
+                .toString();
     }
 }
 
