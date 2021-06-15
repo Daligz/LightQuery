@@ -2,6 +2,7 @@ package net.royalmind.library.lightquery.queries;
 
 import net.royalmind.library.lightquery.exceptions.EmptyValueException;
 import net.royalmind.library.lightquery.interpreters.ValueInterpreter;
+import net.royalmind.library.lightquery.queries.objects.Where;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,8 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     public static final String FORMAT_VALUE = "UPDATE %S SET %s = %s, %s = %s;";
     public static final String FROM_EXCEPTION = "LUpdate builder";
 
-    private String table, where;
+    private String table;
+    private Where where;
     private Map<String, Object> updates = new HashMap<>();
 
     @Override
@@ -27,8 +29,8 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     }
 
     @Override
-    public LUpdate where(final String where) {
-        this.where = where;
+    public LUpdate where(final String column, final String operation, final Object value) {
+        this.where = new Where(column, operation, value);
         return this;
     }
 
@@ -49,11 +51,11 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
                         .append(ValueInterpreter.interpretSQL(o))
                         .append(",")
         );
-        if (this.where != null && !(this.where.isEmpty())) {
+        if (this.where != null) {
             lQuery.deleteCharAt(lQuery.toString().length() - 1);
             lQuery
                     .append(" WHERE ")
-                    .append(this.where);
+                    .append(this.where.toQuery());
         } else {
             lQuery.deleteCharAt(lQuery.toString().length() - 1);
         }

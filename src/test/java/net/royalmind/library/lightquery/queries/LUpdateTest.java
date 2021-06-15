@@ -17,7 +17,7 @@ class LUpdateTest {
                 .update("test_money", 2500.25)
                 .update("test_last_seen", new Date(System.currentTimeMillis()))
                 .getQuery();
-        assertEquals("UPDATE TBL_TEST SET test_money = 2500.25,test_last_seen = 2021-06-14,test_age = 25,test_name = 'NewName';", query);
+        assertEquals("UPDATE TBL_TEST SET test_money = 2500.25,test_last_seen = '2021-06-14',test_age = 25,test_name = 'NewName';", query);
     }
 
     @Test
@@ -28,9 +28,9 @@ class LUpdateTest {
                 .update("test_age", 25)
                 .update("test_money", 2500.25)
                 .update("test_last_seen", new Date(System.currentTimeMillis()))
-                .where("1 = 1")
+                .where("1", "=", 1)
                 .getQuery();
-        assertEquals("UPDATE TBL_TEST SET test_money = 2500.25,test_last_seen = 2021-06-14,test_age = 25,test_name = 'NewName' WHERE 1 = 1;", query);
+        assertEquals("UPDATE TBL_TEST SET test_money = 2500.25,test_last_seen = '2021-06-14',test_age = 25,test_name = 'NewName' WHERE 1 = 1;", query);
     }
 
 }

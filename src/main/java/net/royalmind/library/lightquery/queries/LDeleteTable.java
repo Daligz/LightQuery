@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LDeleteTable implements Query {
 
-    private String table;
+    private final String table;
 
     @Override
     public String getQuery() {
