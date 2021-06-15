@@ -1,19 +1,15 @@
 package net.royalmind.library.lightquery.queries;
 
+import lombok.AllArgsConstructor;
 import net.royalmind.library.lightquery.interpreters.QueryInterpreter;
 
+@AllArgsConstructor
 public class LCreateTable implements Query {
-
-    private String lQuery;
 
     /**
      * You need to use LightQuery syntax
-     *
-     * @param lQuery @{@link String}
      */
-    public LCreateTable(final String lQuery) {
-        this.lQuery = lQuery;
-    }
+    private final String lQuery;
 
     @Override
     public String getQuery() {

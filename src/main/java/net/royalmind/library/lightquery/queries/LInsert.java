@@ -33,11 +33,9 @@ public class LInsert implements Query, InsertQueryBuilder<LInsert> {
         final StringBuilder lQuery = new StringBuilder(
                 String.format("INSERT INTO %s VALUES (", this.table)
         );
-
         for (final Object value : this.values) {
             lQuery.append(ValueInterpreter.interpretSQL(value)).append(", ");
         }
-
         return lQuery
                 .substring(0, lQuery.toString().length() - 2)
                 .concat(");");
