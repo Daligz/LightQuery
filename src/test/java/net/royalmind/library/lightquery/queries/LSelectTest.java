@@ -11,12 +11,12 @@ class LSelectTest {
     @Test
     void emptyValueException() {
         assertThrows(EmptyValueException.class, () -> {
-            final String tbl_test = new LSelect().from("TBL_TEST").where("id = test").getQuery();
+            final String tbl_test = new LSelect().from("TBL_TEST").where("id", "=", "test").getQuery();
             System.out.println(tbl_test);
         });
 
         assertThrows(EmptyValueException.class, () -> {
-            final String tbl_test = new LSelect().value("").from("").where("id = test").getQuery();
+            final String tbl_test = new LSelect().value("").from("").where("id", "=", "test").getQuery();
             System.out.println(tbl_test);
         });
     }
@@ -29,7 +29,7 @@ class LSelectTest {
 
     @Test
     void queryFormatWithWhere() {
-        final String tbl_test = new LSelect().value("*").from("TBL_TEST").where("id = test").getQuery();
-        assertEquals("SELECT * FROM TBL_TEST WHERE id = test;", tbl_test);
+        final String tbl_test = new LSelect().value("*").from("TBL_TEST").where("id", "=", "test").getQuery();
+        assertEquals("SELECT * FROM TBL_TEST WHERE id = 'test';", tbl_test);
     }
 }

@@ -1,13 +1,15 @@
 package net.royalmind.library.lightquery.queries;
 
 import net.royalmind.library.lightquery.exceptions.EmptyValueException;
+import net.royalmind.library.lightquery.queries.objects.Where;
 
 public class LSelect implements Query, SelectQueryBuilder<LSelect> {
 
     public static final String FORMAT_VALUE = "SELECT %s FROM %s WHERE %s;";
     public static final String FROM_EXCEPTION = "LSelect builder";
 
-    private String value, from, where;
+    private String value, from;
+    private Where where;
 
     @Override
     public LSelect value(final String value) {
@@ -22,8 +24,8 @@ public class LSelect implements Query, SelectQueryBuilder<LSelect> {
     }
 
     @Override
-    public LSelect where(final String where) {
-        this.where = where;
+    public LSelect where(final String column, final String operation, final Object value) {
+        this.where = new Where(column, operation, value);
         return this;
     }
 
@@ -37,10 +39,10 @@ public class LSelect implements Query, SelectQueryBuilder<LSelect> {
         final StringBuilder lQuery = new StringBuilder(
                 String.format("SELECT %s FROM %s", this.value, this.from)
         );
-        if (this.where != null && !(this.where.isEmpty())) {
+        if (this.where != null) {
             lQuery
                     .append(" WHERE ")
-                    .append(this.where);
+                    .append(this.where.toQuery());
         }
         return lQuery
                 .append(";")

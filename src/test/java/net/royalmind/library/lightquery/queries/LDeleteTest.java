@@ -14,7 +14,7 @@ class LDeleteTest {
 
     @Test
     void whereQuery() {
-        final String tbl_test = new LDelete().from("TBL_TEST").where("1 = 1").getQuery();
+        final String tbl_test = new LDelete().from("TBL_TEST").where("1", "=", 1).getQuery();
         assertEquals("DELETE FROM TBL_TEST WHERE 1 = 1;", tbl_test);
     }
 }

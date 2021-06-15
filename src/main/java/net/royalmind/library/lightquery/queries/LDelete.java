@@ -1,13 +1,15 @@
 package net.royalmind.library.lightquery.queries;
 
 import net.royalmind.library.lightquery.exceptions.EmptyValueException;
+import net.royalmind.library.lightquery.queries.objects.Where;
 
 public class LDelete implements Query, DeleteQueryBuilder<LDelete> {
 
     public static final String FORMAT_VALUE = "DELETE FROM %s WHERE %s = %s;";
     public static final String FROM_EXCEPTION = "LDelete builder";
 
-    private String from, where;
+    private String from;
+    private Where where;
 
     @Override
     public LDelete from(final String from) {
@@ -16,8 +18,8 @@ public class LDelete implements Query, DeleteQueryBuilder<LDelete> {
     }
 
     @Override
-    public LDelete where(final String where) {
-        this.where = where;
+    public LDelete where(final String column, final String operation, final Object value) {
+        this.where = new Where(column, operation, value);
         return this;
     }
 
@@ -29,10 +31,10 @@ public class LDelete implements Query, DeleteQueryBuilder<LDelete> {
         final StringBuilder lQuery = new StringBuilder(
                 String.format("DELETE FROM %s", this.from)
         );
-        if (this.where != null && !(this.where.isEmpty())) {
+        if (this.where != null) {
             lQuery
                     .append(" WHERE ")
-                    .append(this.where);
+                    .append(this.where.toQuery());
         }
         return lQuery
                 .append(";")

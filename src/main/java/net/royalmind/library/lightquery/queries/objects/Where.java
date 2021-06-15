@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import net.royalmind.library.lightquery.interpreters.ValueInterpreter;
 
-/**
- * POJO Class
- */
 @Getter @Setter
 @AllArgsConstructor
 public class Where {
