@@ -35,7 +35,7 @@ SQL data types are simplified to three characters:
 * NULL = NULL
 
 The statement "TABLE =>" indicates the creation of a table.\
-To place the length of a data type ":" is used, for some values it is not necessary to specify it such as DAT and BOO.\
+To place the length of a data type ":" is used, for some values it is not necessary to specify it such as DAT and BOO.
 
 The sentence "->" indicates the use of properties, these were simplified.
 * NOT NULL = NN
