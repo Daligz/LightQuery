@@ -102,31 +102,31 @@ public void select() {
 ### Update with LightQuery
 You can use the update statement as many times as you need.
 ```java
-    public void update() {
-        final String lQuery = new LUpdate()
-                .table(TBL_NAME)
-                .update("playerName", "Panda")
-                .where("playerName", "=", "ImSrPanda")
-                .getQuery();
-        HIKARI_POOL.execute(connection -> {
-            final boolean response = connection.prepareStatement(lQuery).execute();
-            LOGGER.info(String.format("(Update) lQuery executed with response %b \n lQuery: %s", response, lQuery));
-            return null;
-        });
-    }
+public void update() {
+    final String lQuery = new LUpdate()
+            .table(TBL_NAME)
+            .update("playerName", "Panda")
+            .where("playerName", "=", "ImSrPanda")
+            .getQuery();
+    HIKARI_POOL.execute(connection -> {
+        final boolean response = connection.prepareStatement(lQuery).execute();
+        LOGGER.info(String.format("(Update) lQuery executed with response %b \n lQuery: %s", response, lQuery));
+        return null;
+    });
+}
 ```
 
 ### Delete with LightQuery
 ```java
-    public void delete() {
-        final String lQuery = new LDelete()
-                .from(TBL_NAME)
-                .where("playerName", "=", "Panda")
-                .getQuery();
-        HIKARI_POOL.execute(connection -> {
-            final boolean response = connection.prepareStatement(lQuery).execute();
-            LOGGER.info(String.format("(Delete) lQuery executed with response %b \n lQuery: %s", response, lQuery));
-            return null;
-        });
-    }
+public void delete() {
+    final String lQuery = new LDelete()
+            .from(TBL_NAME)
+            .where("playerName", "=", "Panda")
+            .getQuery();
+    HIKARI_POOL.execute(connection -> {
+        final boolean response = connection.prepareStatement(lQuery).execute();
+        LOGGER.info(String.format("(Delete) lQuery executed with response %b \n lQuery: %s", response, lQuery));
+        return null;
+    });
+}
 ```
