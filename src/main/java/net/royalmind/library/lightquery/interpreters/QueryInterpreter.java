@@ -45,6 +45,7 @@ public class QueryInterpreter {
         // Default values
         final String idValue = TableValuesTypes.ID_VALUE.getValue();
         final String pkValue = TableValuesTypes.PK.getValue();
+        final String fkValue = TableValuesTypes.FK.getValue();
         final String emptyValue = TableValuesTypes.EMPTY.getValue();
 
         for (final String s : split) {
@@ -57,7 +58,7 @@ public class QueryInterpreter {
                     final String defSyntax = TableValuesTypes.valueOf(cStr).getDefSyntax();
                     lQuery.append(" ").append(defSyntax);
                 } else {
-                    if (cStr.contains(idValue) && !(cStr.contains(pkValue))) {
+                    if (cStr.contains(idValue) && !(cStr.contains(pkValue)) && !(cStr.contains(fkValue))) {
                         final String[] sStrs = cStr.split(idValue);
                         if (sStrs.length > 1) {
                             final ObjectInterpreter objectInterpreter = ObjectInterpreter.valueOf(sStrs[0].toUpperCase());
@@ -74,6 +75,14 @@ public class QueryInterpreter {
             if (s.contains(pkValue)) {
                 final String primaryValue = s.replace(pkValue.concat(idValue), emptyValue).trim();
                 lQuery.append(" ").append(String.format(TableValuesTypes.PK.getDefSyntax(), primaryValue));
+            } else if (s.contains(fkValue)) {
+                final String primaryValue = s.replace(fkValue.concat(idValue), emptyValue).trim();
+                final String[] fkSplit = primaryValue.split(idValue);
+                final String foreingKey = fkSplit[0];
+                final String[] tbldSplit = fkSplit[1].split("\\.");
+                final String tableName = tbldSplit[0];
+                final String tableRow = tbldSplit[1];
+                lQuery.append(" ").append(String.format(TableValuesTypes.FK.getDefSyntax(), foreingKey, tableName, tableRow));
             }
             lQuery.append(",");
         }
