@@ -8,6 +8,7 @@ public class QueryInterpreter {
 
     public static final String TABLE_DATA_TYPE_FORMAT = "%s %s(%s)";
     public static final String TABLE_DATA_TYPE_FORMAT_SPEC = "%s %s";
+    public static final String TABLE_DATA_TYPE_FORMAT_DEC = "%s(%s,%s)";
 
     /**
      *
@@ -58,7 +59,13 @@ public class QueryInterpreter {
                     final String defSyntax = TableValuesTypes.valueOf(cStr).getDefSyntax();
                     lQuery.append(" ").append(defSyntax);
                 } else {
-                    if (cStr.contains(idValue) && !(cStr.contains(pkValue)) && !(cStr.contains(fkValue))) {
+                    if (cStr.contains(ObjectInterpreter.DEC.toString()) || cStr.contains(ObjectInterpreter.FLO.toString()) ||
+                            cStr.contains(ObjectInterpreter.DOU.toString())) {
+                        final String[] sDec = cStr.split(idValue);
+                        final ObjectInterpreter objectInterpreter = ObjectInterpreter.valueOf(sDec[0].toUpperCase());
+                        final String interpret = ValueInterpreter.Interpret(objectInterpreter);
+                        lQuery.append(String.format(TABLE_DATA_TYPE_FORMAT, cStrKey, interpret, sDec[1].replace(".", ",")));
+                    } else if (cStr.contains(idValue) && !(cStr.contains(pkValue)) && !(cStr.contains(fkValue))) {
                         final String[] sStrs = cStr.split(idValue);
                         if (sStrs.length > 1) {
                             final ObjectInterpreter objectInterpreter = ObjectInterpreter.valueOf(sStrs[0].toUpperCase());

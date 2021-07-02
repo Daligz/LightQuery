@@ -13,4 +13,11 @@ class LCreateTableTest {
         assertEquals(result, lQuery);
     }
 
+    @Test
+    void withDecimal() {
+        final String result = "CREATE TABLE IF NOT EXISTS %s (id INT(4) NOT NULL AUTO_INCREMENT,value DATE NOT NULL,test DOUBLE(5,2) NOT NULL, PRIMARY KEY(id));";
+        final String lQuery = new LCreateTable("TABLE => id INT:4 -> NN AI, value DAT -> NN, test DOU:5.2 -> NN, PK:id").getQuery();
+        assertEquals(result, lQuery);
+    }
+
 }
