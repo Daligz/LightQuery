@@ -35,6 +35,18 @@ public class LSelect implements Query, SelectQueryBuilder<LSelect> {
     }
 
     @Override
+    public LSelect and(final String column, final String operation, final Object value) {
+        this.where.and(column, operation, value);
+        return this;
+    }
+
+    @Override
+    public LSelect or(final String column, final String operation, final Object value) {
+        this.where.or(column, operation, value);
+        return this;
+    }
+
+    @Override
     public LSelect join(final String table, final String column, final String operation, final String value) {
         this.joins.add(new Join(table, column, operation, value));
         return this;
