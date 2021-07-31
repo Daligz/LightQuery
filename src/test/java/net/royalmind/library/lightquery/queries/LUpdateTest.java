@@ -43,4 +43,19 @@ class LUpdateTest {
                 .getQuery();
         assertEquals("UPDATE TBL_TEST SET count = count + 1 WHERE id = 2;", query);
     }
+
+
+    @Test
+    void and() {
+        final String tbl_test = new LUpdate().table("TBL_TEST").update("test", 1).where("id", "=", 2)
+                .and("1", "=", 1).getQuery();
+        assertEquals("UPDATE TBL_TEST SET test = 1 WHERE id = 2 AND 1 = 1;", tbl_test);
+    }
+
+    @Test
+    void or() {
+        final String tbl_test = new LUpdate().table("TBL_TEST").update("test", 1).where("id", "=", 2)
+                .or("num", ">=", 15).getQuery();
+        assertEquals("UPDATE TBL_TEST SET test = 1 WHERE id = 2 OR num >= 15;", tbl_test);
+    }
 }

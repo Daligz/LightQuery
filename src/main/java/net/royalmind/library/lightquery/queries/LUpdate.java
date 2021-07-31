@@ -36,6 +36,18 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     }
 
     @Override
+    public LUpdate and(final String column, final String operation, final Object value) {
+        this.where.and(column, operation, value);
+        return this;
+    }
+
+    @Override
+    public LUpdate or(final String column, final String operation, final Object value) {
+        this.where.or(column, operation, value);
+        return this;
+    }
+
+    @Override
     public LUpdate notInterpret() {
         this.interpret = false;
         return this;
