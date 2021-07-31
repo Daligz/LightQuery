@@ -14,6 +14,7 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
 
     private String table;
     private Where where;
+    private boolean interpret = true;
     private Map<String, Object> updates = new HashMap<>();
 
     @Override
@@ -35,6 +36,12 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
     }
 
     @Override
+    public LUpdate notInterpret() {
+        this.interpret = false;
+        return this;
+    }
+
+    @Override
     public String getQuery() {
         if (this.table == null || this.table.isEmpty()) {
             throw new EmptyValueException("table", FROM_EXCEPTION);
@@ -44,13 +51,16 @@ public class LUpdate implements Query, UpdateQueryBuilder<LUpdate> {
         final StringBuilder lQuery = new StringBuilder(
                 String.format("UPDATE %s SET ", this.table)
         );
-        this.updates.forEach((s, o) ->
-                lQuery
-                        .append(s)
-                        .append(" = ")
-                        .append(ValueInterpreter.interpretSQL(o))
-                        .append(",")
-        );
+        this.updates.forEach((s, o) -> {
+            lQuery
+                    .append(s)
+                    .append(" = ");
+            lQuery.append(
+                    (this.interpret) ? ValueInterpreter.interpretSQL(o) : o
+            );
+            lQuery
+                    .append(",");
+        });
         if (this.where != null) {
             lQuery.deleteCharAt(lQuery.toString().length() - 1);
             lQuery
