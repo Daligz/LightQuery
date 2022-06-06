@@ -1,4 +1,4 @@
-package me.upp.daligz.p3.backend.modelo;
+package net.royalmind.library.lightquery;
 
 import com.zaxxer.hikari.HikariConfig;
 
@@ -6,17 +6,17 @@ public class SimpleSourceBuilder {
     
     private String url = "", user = "", password = "";
     
-    public me.upp.daligz.p3.backend.modelo.SimpleSourceBuilder setUlr(final String url) {
+    public SimpleSourceBuilder setUrl(final String url) {
         this.url = url;
         return this;
     }
     
-    public me.upp.daligz.p3.backend.modelo.SimpleSourceBuilder setUser(final String user) {
+    public SimpleSourceBuilder setUser(final String user) {
         this.user = user;
         return this;
     }
     
-    public me.upp.daligz.p3.backend.modelo.SimpleSourceBuilder setPassword(final String password) {
+    public SimpleSourceBuilder setPassword(final String password) {
         this.password = password;
         return this;
     }
